@@ -377,3 +377,19 @@ width: 70%;
     padding: 20px;
     align-items: center;
 }
+
+
+.news-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensures the image doesn't overflow its container */
+  }
+  
+  .news-image {
+    width: 100%; /* Adjusts the width to 100% of the parent container */
+    height: auto; /* Maintains the aspect ratio of the image */
+    max-height: 200px; /* Optional: You can set a max height to avoid excessively large images */
+    object-fit: cover; /* Ensures the image covers the container */
+  }
+  
