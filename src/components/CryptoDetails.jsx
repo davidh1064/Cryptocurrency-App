@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { useParams } from "react-router-dom";
 
 const CryptoDetails = () => {
-  return (
-    <div>CryptoDetails</div>
-  )
-}
+  const { coinId } = useParams();
 
-export default CryptoDetails
+  console.log(coinId);
+
+  return <div>CryptoDetails {coinId}</div>;
+};
+
+export default CryptoDetails;
