@@ -59,10 +59,6 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
     scales: {
       x: {
         reverse: false,
-        ticks: {
-          maxRotation: 45,
-          minRotation: 45,
-        },
       },
     },
   };
