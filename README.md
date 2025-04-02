@@ -44,7 +44,9 @@ Visit the live application at: [Cryptocurrency App](https://cryptocurrency-app-w
 Create a `.env` file in the root directory and add your API keys:
 
 ```env
-REACT_APP_RAPID_API_KEY=your_api_key_here
+REACT_APP_RAPID_API_KEY=your_rapid_api_key_here
+REACT_APP_RAPID_API_HOST=coinranking1.p.rapidapi.com
+REACT_APP_RAPID_API_NEWS_HOST=real-time-news-data.p.rapidapi.com 
 ```
 
 ## 📱 Responsive Design
