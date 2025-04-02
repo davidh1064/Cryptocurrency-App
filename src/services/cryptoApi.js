@@ -16,7 +16,37 @@ export const cryptoApi = createApi({
     getCryptos: builder.query({
       query: (count) => createRequest(`/coins?limit=${count}`),
     }),
+    getCryptoDetails: builder.query({
+      query: (coinId) => createRequest(`/coin/${coinId}`),
+      transformResponse: (response, meta) => {
+        // API returns a different structure for single coin details
+        if (response?.data?.coin) {
+          return response;
+        }
+        // If we don't get a coin object, try to find it in the coins array
+        const coin = response?.data?.coins?.find(
+          (coin) => coin.uuid === meta.arg
+        );
+        if (coin) {
+          return {
+            status: response.status,
+            data: {
+              coin: coin,
+            },
+          };
+        }
+        return response;
+      },
+    }),
+    getCryptoHistory: builder.query({
+      query: ({ coinId, timePeriod }) =>
+        createRequest(`/coin/${coinId}/history?timePeriod=${timePeriod}`),
+    }),
   }),
 });
 
-export const { useGetCryptosQuery } = cryptoApi;
+export const {
+  useGetCryptosQuery,
+  useGetCryptoDetailsQuery,
+  useGetCryptoHistoryQuery,
+} = cryptoApi;
