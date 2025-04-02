@@ -4,7 +4,6 @@ import { Layout, Typography, Space } from "antd";
 
 import {
   Navbar,
-  Exchanges,
   Homepage,
   Cryptocurrencies,
   News,
@@ -12,45 +11,45 @@ import {
 } from "./components";
 import "./App.css";
 
+const { Content, Footer } = Layout;
+
 const App = () => {
   return (
     <div className="app">
       <div className="navbar">
         <Navbar />
       </div>
-      <div className="main">
-        <Layout>
-          <div className="routes">
-            <Switch>
-              <Route exact path="/">
-                <Homepage />
-              </Route>
-              <Route exact path="/cryptocurrencies">
-                <Cryptocurrencies />
-              </Route>
-              <Route exact path="/crypto/:coinId">
-                <CryptoDetails />
-              </Route>
-              <Route exact path="/news">
-                <News />
-              </Route>
-            </Switch>
-          </div>
-        </Layout>
-        <div className="footer">
+      <Layout className="main">
+        <Content className="routes">
+          <Switch>
+            <Route exact path="/">
+              <Homepage />
+            </Route>
+            <Route exact path="/cryptocurrencies">
+              <Cryptocurrencies />
+            </Route>
+            <Route exact path="/crypto/:coinId">
+              <CryptoDetails />
+            </Route>
+            <Route exact path="/news">
+              <News />
+            </Route>
+          </Switch>
+        </Content>
+        <Footer className="footer">
           <Typography.Title
             level={5}
-            style={{ color: "white", textAlign: "center" }}
+            style={{ color: "white", textAlign: "center", margin: 0 }}
           >
-            Brr Printer <br />
+            CryptoApp
           </Typography.Title>
           <Space>
             <Link to="/">Home</Link>
-            <Link to="/exchanges">Exchanges</Link>
+            <Link to="/cryptocurrencies">Cryptocurrencies</Link>
             <Link to="/news">News</Link>
           </Space>
-        </div>
-      </div>
+        </Footer>
+      </Layout>
     </div>
   );
 };
