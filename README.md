@@ -60,19 +60,3 @@ The application is fully responsive and optimized for:
 ## 🚀 Deployment
 
 This project is deployed on Vercel. The deployment process is automated through GitHub integration.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👥 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-## 📞 Contact
-
-For any queries or support, please open an issue in the GitHub repository.
-
----
-
-Made with ❤️ by [Your Name]
