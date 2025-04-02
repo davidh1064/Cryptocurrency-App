@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import millify from "millify";
 import { Link } from "react-router-dom";
-import { Card, Row, Col, Input } from "antd";
+import { Card, Row, Col, Input, Typography, Spin } from "antd";
+import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
 
 import { useGetCryptosQuery } from "../services/cryptoApi";
+
+const { Title } = Typography;
 
 const Cryptocurrencies = ({ simplified }) => {
   const count = simplified ? 10 : 100;
@@ -12,7 +15,6 @@ const Cryptocurrencies = ({ simplified }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    console.log("Fetching data:", cryptosList);
     if (cryptosList?.data?.coins) {
       const filteredData = cryptosList.data.coins.filter((coin) =>
         coin.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -21,8 +23,8 @@ const Cryptocurrencies = ({ simplified }) => {
     }
   }, [cryptosList, searchTerm]);
 
-  if (isFetching) return "Loading...";
-  if (error) return `Error: ${error.message}`;
+  if (isFetching) return <Spin size="large" className="loader" />;
+  if (error) return <Title level={3}>Error: {error.message}</Title>;
 
   return (
     <>
@@ -32,12 +34,14 @@ const Cryptocurrencies = ({ simplified }) => {
             placeholder="Search Cryptocurrency"
             onChange={(e) => setSearchTerm(e.target.value)}
             size="large"
+            allowClear
           />
         </div>
       )}
-      <Row gutter={[16, 16]} className="crypto-card-container">
+      <Row gutter={[24, 24]} className="crypto-card-container">
         {cryptos?.map((currency) => {
           const coinId = currency.uuid;
+          const priceChange = parseFloat(currency.change);
 
           return (
             <Col
@@ -60,9 +64,33 @@ const Cryptocurrencies = ({ simplified }) => {
                   }
                   hoverable
                 >
-                  <p>Price: {millify(currency.price)}</p>
-                  <p>Market Cap: {millify(currency.marketCap)}</p>
-                  <p>Daily Change: {currency.change}%</p>
+                  <div className="crypto-stats">
+                    <div className="crypto-price">
+                      <p>Price:</p>
+                      <p className="price-value">$ {millify(currency.price)}</p>
+                    </div>
+                    <div className="crypto-market-cap">
+                      <p>Market Cap:</p>
+                      <p>$ {millify(currency.marketCap)}</p>
+                    </div>
+                    <div className="crypto-change">
+                      <p>Daily Change:</p>
+                      <p
+                        className={
+                          priceChange >= 0
+                            ? "price-change-positive"
+                            : "price-change-negative"
+                        }
+                      >
+                        {priceChange >= 0 ? (
+                          <ArrowUpOutlined />
+                        ) : (
+                          <ArrowDownOutlined />
+                        )}{" "}
+                        {currency.change}%
+                      </p>
+                    </div>
+                  </div>
                 </Card>
               </Link>
             </Col>
